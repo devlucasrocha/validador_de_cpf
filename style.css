@@ -5,8 +5,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border: 6px solid rgb(231, 38, 157);
-    border-radius: 5px;
+    border: 10px solid rgb(231, 38, 157);
     padding: 10px;
     background-color: rgb(240, 240, 240);
 }
@@ -28,7 +27,7 @@ body {
 #cpf {
     position: relative;
     text-align: center;
-    font-size: 20px;
+    font-size: 180%;
 }
 
 h2 {
