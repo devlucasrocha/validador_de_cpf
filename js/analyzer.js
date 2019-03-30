@@ -6,7 +6,7 @@ function getLenOf(cpf) {
 
 cpf.addEventListener('input', () => {
     if (getLenOf(cpf) === 14) {
-        const valido = validate_CPF(cpf.value)
+        const valido = validate_cpf(cpf.value)
         if (valido) {
             setStatus('CPF VÁLIDO')
             $("#main-box").removeClass("border-success")
@@ -20,51 +20,24 @@ cpf.addEventListener('input', () => {
         $("#main-box").removeClass("border-success")
         $("#main-box").removeClass("border-danger")
         $("#main-box").addClass("border-secondary")
-        
+
     }
 })
 
-function validate_CPF(cpf) {
+function validate_cpf(cpf) {
     let cpf_array = []
-    let primeiro_digito = 0
-    let dec10 = 10
-    for (let i of cpf) {
-        if (i !== '.' && i !== '-') {
-            cpf_array.push(parseInt(i))
-        }
-    }
+    cpf_array = cpf.split('')
+    const getNumbers = e => e != '.' && e != '-'
+    cpf_array = cpf_array.filter(getNumbers).map((e) => parseInt(e))
 
-    for (let i of cpf_array) {
-        primeiro_digito += i * dec10
-        if (dec10 == 2) {
-            break
-        }
-        dec10--
-    }
+    let primeiro_digito = getPrimeiroDigito(cpf_array) * 10 % 11
+    let segundo_digito = getSegundoDigito(cpf_array) * 10 % 11
 
-    primeiro_digito = primeiro_digito * 10 % 11
-    if (primeiro_digito === 10) {
-        primeiro_digito = 0
-    }
+    primeiro_digito = primeiro_digito === 10 ? 0 : primeiro_digito
+    segundo_digito = segundo_digito === 10 ? 0 : segundo_digito
+    console.log(`d1: ${primeiro_digito} d2: ${segundo_digito}`)
 
-
-    let segundo_digito = 0
-    let dec11 = 11
-    for (let i of cpf_array) {
-        segundo_digito += i * dec11
-        if (dec11 === 2) {
-            break
-        }
-        dec11--
-    }
-
-    segundo_digito = segundo_digito * 10 % 11
-    if (segundo_digito === 10) {
-        segundo_digito = 0
-    }
-
-    function todosIguais() {
-        let count = 0;
+    function todosIguais(count = 0) {
         for (let i = 9; i >= 0; i--) {
             count = cpf_array.filter(x => x == i).length
             if (count == 11) {
@@ -76,13 +49,24 @@ function validate_CPF(cpf) {
         }
     }
 
-    const valido = cpf[12] == primeiro_digito && cpf[13] == segundo_digito && !todosIguais()
-
-    if (valido) {
-        return true
-    } else {
-        return false
+    function getSegundoDigito(cpf_array, dec11 = 11, calc = 0) {
+        for (let c = 0; c < cpf_array.length - 1; c++) {
+            calc += cpf_array[c] * dec11
+            dec11--
+        }
+        return calc
     }
+
+    function getPrimeiroDigito(cpf_array, dec10 = 10, calc = 0) {
+        for (let c = 0; c < cpf_array.length - 2; c++) {
+            calc += cpf_array[c] * dec10
+            dec10--
+        }
+        return calc
+    }
+
+    const validacao = primeiro_digito === cpf_array[9] && segundo_digito === cpf_array[10] && !todosIguais()
+    return validacao
 }
 
 function setStatus(status_msg) {
