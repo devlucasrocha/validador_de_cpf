@@ -1,0 +1,20 @@
+#main-box {
+    position: absolute;
+    width: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 6px solid rgb(17, 0, 255);
+    border-radius: 5px;
+    padding: 10px;
+}
+
+#cpf {
+    position: relative;
+    text-align: center;
+    font-size: 20px;
+}
+
+h2 {
+    text-align: center;
+}
