@@ -7,6 +7,11 @@
     border: 6px solid rgb(17, 0, 255);
     border-radius: 5px;
     padding: 10px;
+    background-color: rgb(236, 236, 236);
+}
+
+body {
+    background: rgb(20, 20, 177);
 }
 
 #cpf {

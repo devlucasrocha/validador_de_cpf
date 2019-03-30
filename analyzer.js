@@ -61,7 +61,20 @@ function validate_CPF(cpf) {
         segundo_digito = 0
     }
 
-    const valido = cpf[12] == primeiro_digito && cpf[13] == segundo_digito
+    function todosIguais() {
+        let count = 0;
+        for (let i = 9; i >= 0; i--) {
+            count = cpf_array.filter(x => x == i).length
+            if (count == 11) {
+                break
+            }
+        }
+        if (count == 11) {
+            return true
+        }
+    }
+
+    const valido = cpf[12] == primeiro_digito && cpf[13] == segundo_digito && !todosIguais()
 
     if (valido) {
         return true
