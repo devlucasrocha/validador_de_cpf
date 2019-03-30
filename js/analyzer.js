@@ -3,22 +3,24 @@ const cpf = document.getElementById('cpf')
 function getLenOf(cpf) {
     return cpf.value.length
 }
+
 cpf.addEventListener('input', () => {
     if (getLenOf(cpf) === 14) {
         const valido = validate_CPF(cpf.value)
         if (valido) {
-            status('CPF VÁLIDO')
-            document.getElementById('main-box').classList.remove('border-danger')
-            document.getElementById('main-box').classList.add('border-success')
+            setStatus('CPF VÁLIDO')
+            $("#main-box").removeClass("border-success")
+            $("#main-box").addClass("border-success")
         } else {
-            status('CPF INVÁLIDO')
-            document.getElementById('main-box').classList.add('border-danger')
+            setStatus('CPF INVÁLIDO')
+            $("#main-box").addClass("border-danger")
         }
     } else {
-        status('...')
-        document.getElementById('main-box').classList.remove('border-danger')
-        document.getElementById('main-box').classList.remove('border-success')
-        document.getElementById('main-box').classList.add('border-secondary')
+        setStatus('...')
+        $("#main-box").removeClass("border-success")
+        $("#main-box").removeClass("border-danger")
+        $("#main-box").addClass("border-secondary")
+        
     }
 })
 
@@ -83,18 +85,17 @@ function validate_CPF(cpf) {
     }
 }
 
-function status(status_msg) {
-    const status = document.getElementById('status')
-    status.innerHTML = status_msg
+function setStatus(status_msg) {
+    $('#status').html(status_msg)
     if (status_msg.includes(' VÁLIDO')) {
-        status.classList.remove('text-danger')
-        status.classList.add('text-success')
+        $('#status').removeClass('text-danger')
+        $('#status').addClass('text-success')
     } else if (status_msg.includes('INVÁLIDO')) {
-        status.classList.remove('text-success')
-        status.classList.add('text-danger')
+        $('#status').removeClass('text-success')
+        $('#status').addClass('text-danger')
     } else {
-        status.classList.remove('text-success')
-        status.classList.remove('text-danger')
-        status.classList.add('text-secondary')
+        $('#status').removeClass('text-danger')
+        $('#status').removeClass('text-success')
+        $('#status').addClass('text-secondary')
     }
 }
