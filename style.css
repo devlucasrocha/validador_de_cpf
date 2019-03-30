@@ -22,6 +22,7 @@
 body {
     background: -webkit-linear-gradient(to left, #0b8793, #360033);
     background: linear-gradient(to left, #0b8793, #360033);
+    height: 100vh;
 }
 
 #cpf {
